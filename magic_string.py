@@ -32,19 +32,19 @@ assert (generate_magic(7) == 249)
 
 
 def magic(length):
-    rules = [1 for i in range(5)]
+    previous_level = [1 for i in range(5)]
     current_level = [None for _ in range(5)]
 
     for _ in range(length - 1):
-        current_level[0] = rules[1] + rules[2] + rules[4]
-        current_level[1] = rules[0] + rules[2]
-        current_level[2] = rules[1] + rules[3]
-        current_level[3] = rules[2]
-        current_level[4] = rules[2] + rules[3]
+        current_level[0] = previous_level[1] + previous_level[2] + previous_level[4] # you can get here on 3 ways (e,i,u)
+        current_level[1] = previous_level[0] + previous_level[2]
+        current_level[2] = previous_level[1] + previous_level[3]
+        current_level[3] = previous_level[2]
+        current_level[4] = previous_level[2] + previous_level[3]
 
-        rules = current_level.copy()
+        previous_level = current_level.copy()
 
-    return sum(rules) % (10 ** 9 + 7)
+    return sum(previous_level) % (10 ** 9 + 7)
 
 
 assert (magic(1) == 5)
